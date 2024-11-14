@@ -130,11 +130,16 @@
 
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src='{{ "js/totop.js?v=0.0.0" | relURL }}' async=""></script>
-{{- if hasPrefix .Site.GoogleAnalytics "UA-" -}}
-    {{ template "_internal/google_analytics_async.html" . }}
-{{- else if hasPrefix .Site.GoogleAnalytics "G-" -}}
-    {{ template "_internal/google_analytics.html" . }}
-{{- end -}}
+<!-- 替換為直接使用 Google Analytics 程式碼 -->
+{{ if .Site.Params.googleAnalytics }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ .Site.Params.googleAnalytics }}');
+</script>
+{{ end }}
 
 {{ partial "copy_button" . }}
 
